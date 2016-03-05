@@ -45,10 +45,10 @@ $(document).ready(function () {
             type: 'GET',
             contentType: "charset=utf-8",
         }).done(function (data){
-            $('#' + tag).html(success);
+            $('#' + tag).html('SUCCESS');
             log_details(url, data);
         }).fail(function (){
-            $('#' + tag).html(failure);
+            $('#' + tag).html('FAILURE');
         });
     }
 
