@@ -16,26 +16,34 @@ body {
 </head>
 <body>
 <div class="container text-center">
+
+<div class="col-md-12">
 <h1> FightingGame.Community Status </h1>
+<h3>
+    If anything is down, please notify <a href="https://twitter.com/fgc_status">@fgc_status</a>
+</h3>
+<br/>
+</div>
 <div class="col-md-6 text-right">
     <p> Website: </p>
     <p> Registering new players: </p>
 </div>
 <div class="col-md-6 text-left">
-    <p id="sfv_web"></p>
-    <p id="api_web"></p>
+    <p id="sfv_web">checking...</p>
+    <p id="api_web">checking...</p>
 </div>
-<div id="details"></div>
+<div class="col-md-12" id="details"></div>
+<div class="col-md-12">
+<br/>
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/fgc_status" data-widget-id="706198119713783810">Tweets by @fgc_status</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
 
 <script type="text/javascript">
 $(document).ready(function () {
 
-    var success = '<img src="icons.png">';
-    var failure = '<img src="icons.png">';
-
     function log_details(url, message){
-        // if (window.location.href.contains("details"){
-        if (true){
+        if (window.location.href.contains("details"){
             $('#details').append(url + '<br/>' + message + '<br/>');
         }
     }
@@ -46,10 +54,10 @@ $(document).ready(function () {
             type: 'GET',
             contentType: "charset=utf-8",
         }).done(function (data){
-            $('#' + tag).html('SUCCESS');
+            $('#' + tag).html('OK');
             log_details(url, data);
         }).fail(function (){
-            $('#' + tag).html('FAILURE');
+            $('#' + tag).html('DOWN');
         });
     }
 
