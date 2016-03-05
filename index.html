@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FGC Status</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"> </script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+
+<style>
+body {
+    background-color: #222222;
+    color: #DDDDDD;
+}
+</style>
+</head>
+<body>
+<div class="container text-center">
+<h1> FightingGame.Community Status </h1>
+<div class="col-md-6 text-right">
+    <p> Website: </p>
+    <p> Registering new players: </p>
+</div>
+<div class="col-md-6 text-left">
+    <p id="sfv_web"></p>
+</div>
+<div id="details"></div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+
+    var success = '<img src="icons.png">';
+    var failure = '<img src="icons.png">';
+
+    function log_details(url, message){
+        // if (window.location.href.contains("details"){
+        if (true){
+            $('#details').append(url + '<br/>' + message + '<br/>');
+        }
+    }
+
+    function check_endpoint(tag, url){
+        $.ajax({
+            url: url,
+            type: 'GET',
+            contentType: "charset=utf-8",
+        }).done(function (data){
+            $('#' + tag).html(success);
+            log_details(url, data);
+        }).fail(function (){
+            $('#' + tag).html(failure);
+        });
+    }
+
+    var to_check = [
+        'sfv_web', 'http://sfv.fightinggame.community/admin/status/web',
+        'api_web', 'http://api.fightinggame.community/admin/status/web',
+    ];
+
+    to_check.forEach(function (tuple){
+        check_endpoint(tuple[0], tuple[1]);
+    });
+});
+</script>
+</body>
+</html
