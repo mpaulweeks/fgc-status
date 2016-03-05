@@ -1,2 +1,5 @@
 # fgc-status
-Status page for FightingGame.Community
+
+http://status.fightinggame.community/
+
+Always-up status/error page for FightingGame.Community
