@@ -33,7 +33,7 @@ a {
 </div>
 <div class="col-md-6 text-left">
     <p id="sfv_web">checking...</p>
-    <p id="api_web">checking...</p>
+    <p id="api_cfn">checking...</p>
 </div>
 <div class="col-md-12" id="details">
 </div>
@@ -67,7 +67,7 @@ $(document).ready(function () {
 
     var to_check = [
         ['sfv_web', 'http://sfv.fightinggame.community/admin/status/web'],
-        ['api_web', 'http://api.fightinggame.community/admin/status/web'],
+        ['api_cfn', 'http://api.fightinggame.community/admin/status/cfn'],
     ];
 
     to_check.forEach(function (tuple){
