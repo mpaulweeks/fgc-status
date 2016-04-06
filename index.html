@@ -33,7 +33,7 @@ a {
 </div>
 <div class="col-md-6 text-left">
     <p id="sfv_web">checking...</p>
-    <p id="api_cfn">checking...</p>
+    <p id="sfv_api">checking...</p>
 </div>
 <div class="col-md-12" id="details">
 </div>
@@ -46,32 +46,71 @@ a {
 <script type="text/javascript">
 $(document).ready(function () {
 
-    function log_details(url, message){
-        if (window.location.href.includes("details")){
-            $('#details').append('<br/>' + url + '<br/>' + message + '<br/>');
+    function refresh_info(service){
+        var details = "";
+        var is_up = true;
+        var is_done = true;
+        service.endpoints.forEach(function (endpoint){
+            if (endpoint.is_up == null){
+                is_done = false;
+            } else {
+                is_up = is_up && endpoint.is_up;
+                details += '<br/>' + endpoint.url + '<br/>' + endpoint.message + '<br/>';
+            }
+        });
+        if (is_done){
+            if (window.location.href.includes("details")){
+                $('#details').append(details);
+            }
+            var result = is_up ? 'OK' : 'DOWN';
+            $('#' + service.tag).html(result);
         }
     }
 
-    function check_endpoint(tag, url){
-        $.ajax({
-            url: url,
-            type: 'GET',
-            contentType: "charset=utf-8",
-        }).done(function (data){
-            $('#' + tag).html('OK');
-            log_details(url, data);
-        }).fail(function (){
-            $('#' + tag).html('DOWN');
+    function check_service(service){
+        service.endpoints.forEach(function (endpoint){
+            $.ajax({
+                url: endpoint.url,
+                type: 'GET',
+                contentType: "charset=utf-8",
+            }).done(function (data){
+                endpoint.is_up = true;
+                endpoint.message = data;
+                refresh_info(service);
+            }).fail(function (data){
+                endpoint.is_up = false;
+                endpoint.message = data;
+                refresh_info(service);
+            });
         });
     }
 
-    var to_check = [
-        ['sfv_web', 'http://sfv.fightinggame.community/admin/status/web'],
-        ['api_cfn', 'http://api.fightinggame.community/admin/status/cfn'],
+    function create_endpoint(url){
+        return {
+            url: url,
+            is_up: null,
+            message: ''
+        }
+    }
+
+    var services = [
+        {
+            tag: 'sfv_web',
+            endpoints: [
+                create_endpoint('http://sfv.fightinggame.community/admin/status/web')
+            ]
+        },
+        {
+            tag: 'sfv_api',
+            endpoints: [
+                create_endpoint('http://api.fightinggame.community/admin/status/web'),
+                create_endpoint('http://api.fightinggame.community/admin/status/cfn')
+            ]
+        },
     ];
 
-    to_check.forEach(function (tuple){
-        check_endpoint(tuple[0], tuple[1]);
+    services.forEach(function (service){
+        check_service(service);
     });
 });
 </script>
