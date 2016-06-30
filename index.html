@@ -23,7 +23,7 @@ a {
 <div class="col-md-12">
 <h1> FightingGame.Community Status </h1>
 <h3>
-    If anything is down, please notify <a href="https://twitter.com/fgc_status">@fgc_status</a>
+    If anything is DOWN, please notify <a href="https://twitter.com/fgc_status">@fgc_status</a>
 </h3>
 <br/>
 </div>
@@ -33,7 +33,7 @@ a {
 </div>
 <div class="col-md-6 text-left">
     <p id="sfv_web">checking...</p>
-    <p id="sfv_api">checking...</p>
+    <p id="sfv_api">DISABLED</p>
 </div>
 <div class="col-md-12" id="details">
 </div>
@@ -100,13 +100,13 @@ $(document).ready(function () {
                 create_endpoint('http://sfv.fightinggame.community/admin/status/web')
             ]
         },
-        {
-            tag: 'sfv_api',
-            endpoints: [
-                create_endpoint('http://api.fightinggame.community/admin/status/web'),
-                create_endpoint('http://api.fightinggame.community/admin/status/cfn')
-            ]
-        },
+        // {
+        //     tag: 'sfv_api',
+        //     endpoints: [
+        //         create_endpoint('http://api.fightinggame.community/admin/status/web'),
+        //         create_endpoint('http://api.fightinggame.community/admin/status/cfn')
+        //     ]
+        // },
     ];
 
     services.forEach(function (service){
